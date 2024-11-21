@@ -60,7 +60,7 @@
                       </b-tbody>
                     </b-table-simple>
                     <h2>II. DATA PENGGUNAAN HAK SUARA</h2>
-                    <PenggunaanHakSuara :form="form" :id="item.id" @jml-dpt="hitungTotal"></PenggunaanHakSuara>
+                    <PenggunaanHakSuara :form="form" :state="state" :feedback="feedback" :id="item.id" @jml-dpt="hitungTotal"></PenggunaanHakSuara>
                     <h2>III. DATA PEMILIH DISABILITAS</h2>
                     <DataPemilihDisabilitas :form="form" :id="item.id" @jml-dpt="sumDisabilitas"></DataPemilihDisabilitas>
                     <h2>IV. DATA RINCIAN PEROLEHAN SUARA SAH PASANGAN CALON {{ item.nama }} </h2>
@@ -207,8 +207,8 @@ export default {
             2: 0,
           },
           tidak_terpakai: {
-            1: 0,
-            2: 0,
+            1: null,
+            2: null,
           },
         },
         disabilitas:{
@@ -251,6 +251,9 @@ export default {
           dpt_kl: {},
           dpt_kp: {},
         },
+        penggunaan: {
+          dikembalikan: {}
+        },
       },
       feedback: {
         data_pemilih: {
@@ -264,6 +267,9 @@ export default {
           dpt_bp: {},
           dpt_kl: {},
           dpt_kp: {},
+        },
+        penggunaan: {
+          dikembalikan: {}
         },
       },
     }
@@ -307,8 +313,6 @@ export default {
             _this.form.penggunaan.digunakan[item.id] = item.surat_suara.digunakan
             _this.form.penggunaan.dikembalikan[item.id] = item.surat_suara.dikembalikan
             _this.form.penggunaan.tidak_terpakai[item.id] = item.surat_suara.tidak_terpakai
-          } else {
-            _this.form.penggunaan.tidak_terpakai[item.id] = _this.form.penggunaan.jml_surat_suara[item.id] - (_this.form.penggunaan.digunakan[item.id] + _this.form.penggunaan.dikembalikan[item.id])
           }
           if(item.suara){
             _this.form.jml_suara_sah[item.id] = item.suara.sah
@@ -376,6 +380,9 @@ export default {
           var f_pengguna_hak_pilih_dpt_bp = {}
           var f_pengguna_hak_pilih_dpt_kl = {}
           var f_pengguna_hak_pilih_dpt_kp = {}
+          var s_dikembalikan = {}
+          var f_dikembalikan = {}
+          
           this.items.forEach(item => {
             s_data_pemilih_dpt_l[item.id] = (getData.errors['data_pemilih.dpt_l.'+item.id]) ? false : null
             f_pemilih_dpt_l[item.id] = (getData.errors['data_pemilih.dpt_l.'+item.id]) ? getData.errors['data_pemilih.dpt_l.'+item.id].join(', ') : ''
@@ -395,6 +402,9 @@ export default {
             f_pengguna_hak_pilih_dpt_bp[item.id] = (getData.errors['pengguna_hak_pilih.dpt_bp.'+item.id]) ? getData.errors['pengguna_hak_pilih.dpt_bp.'+item.id].join(', ') : ''
             f_pengguna_hak_pilih_dpt_kl[item.id] = (getData.errors['pengguna_hak_pilih.dpt_kl.'+item.id]) ? getData.errors['pengguna_hak_pilih.dpt_kl.'+item.id].join(', ') : ''
             f_pengguna_hak_pilih_dpt_kp[item.id] = (getData.errors['pengguna_hak_pilih.dpt_kp.'+item.id]) ? getData.errors['pengguna_hak_pilih.dpt_kp.'+item.id].join(', ') : ''
+
+            s_dikembalikan[item.id] = (getData.errors['penggunaan.dikembalikan.'+item.id]) ? false : null
+            f_dikembalikan[item.id] = (getData.errors['penggunaan.dikembalikan.'+item.id]) ? getData.errors['penggunaan.dikembalikan.'+item.id].join(', ') : ''
           })
           
           this.state.data_pemilih.dpt_l = s_data_pemilih_dpt_l
@@ -416,6 +426,9 @@ export default {
           this.feedback.pengguna_hak_pilih.dpt_bp = f_pengguna_hak_pilih_dpt_bp
           this.feedback.pengguna_hak_pilih.dpt_kl = f_pengguna_hak_pilih_dpt_kl
           this.feedback.pengguna_hak_pilih.dpt_kp = f_pengguna_hak_pilih_dpt_kp
+
+          this.state.penggunaan.dikembalikan = s_dikembalikan
+          this.feedback.penggunaan.dikembalikan = f_dikembalikan
         } else {
           this.$swal({
             icon: getData.icon,

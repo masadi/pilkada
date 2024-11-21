@@ -47,6 +47,7 @@ class DashboardController extends Controller
             'pengguna_hak_pilih.dpt_bp.'.request()->id => 'required',
             'pengguna_hak_pilih.dpt_kl.'.request()->id => 'required',
             'pengguna_hak_pilih.dpt_kp.'.request()->id => 'required',
+            'penggunaan.dikembalikan.'.request()->id => 'required',
          ],
          [
             'data_pemilih.dpt_l.'.request()->id.'.required' => 'tidak boleh kosong',
@@ -57,6 +58,7 @@ class DashboardController extends Controller
             'pengguna_hak_pilih.dpt_bp.'.request()->id.'.required' => 'tidak boleh kosong',
             'pengguna_hak_pilih.dpt_kl.'.request()->id.'.required' => 'tidak boleh kosong',
             'pengguna_hak_pilih.dpt_kp.'.request()->id.'.required' => 'tidak boleh kosong',
+            'penggunaan.dikembalikan.'.request()->id.'.required' => 'tidak boleh kosong',
          ]
       );
       HakPilih::updateOrCreate(

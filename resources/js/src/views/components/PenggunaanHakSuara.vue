@@ -22,7 +22,8 @@
       <b-tr>
         <b-td>3.	Jumlah surat suara dikembalikan oleh pemilih, karena rusak atau keliru coblos</b-td>
         <b-td>
-          <b-form-input v-model="form.penggunaan.dikembalikan[id]" type="number" @input="jmlDpt(id)"></b-form-input>
+          <b-form-input v-model="form.penggunaan.dikembalikan[id]" type="number" @input="jmlDpt(id)" :state="state.penggunaan.dikembalikan[id]"></b-form-input>
+          <b-form-invalid-feedback :state="state.penggunaan.dikembalikan[id]">{{ feedback.penggunaan.dikembalikan[id] }}</b-form-invalid-feedback>
         </b-td>
       </b-tr>
       <b-tr>
@@ -43,6 +44,14 @@ export default {
   },
   props: {
     form: {
+      type: Object,
+      required: true
+    },
+    state: {
+      type: Object,
+      required: true
+    },
+    feedback: {
       type: Object,
       required: true
     },
