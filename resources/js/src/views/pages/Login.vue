@@ -35,10 +35,10 @@
           <validation-observer ref="loginForm" #default="{ invalid }">
             <b-form class="auth-login-form mt-2" @submit.prevent="login">
               <!-- email -->
-              <b-form-group label="Email" label-for="login-email">
-                <validation-provider #default="{ errors }" name="Email" vid="email" rules="required">
+              <b-form-group label="Username" label-for="login-email">
+                <validation-provider #default="{ errors }" name="Username" vid="email" rules="required">
                   <b-form-input id="login-email" v-model="userEmail" :state="errors.length > 0 ? false : null"
-                    name="login-email" placeholder="Email/Username" />
+                    name="login-email" placeholder="Username" />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
               </b-form-group>
