@@ -203,8 +203,8 @@ export default {
             2: 0,
           },
           dikembalikan: {
-            1: 0,
-            2: 0,
+            1: null,
+            2: null,
           },
           tidak_terpakai: {
             1: null,
